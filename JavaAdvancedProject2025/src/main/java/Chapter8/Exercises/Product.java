@@ -85,18 +85,24 @@ public class Product {
     }
 
     public void increasePrice(double percentage) {
-        double increase = 0;
         if (percentage > 0) {
-            increase += price * (percentage / 100);
-            if (increase >=0 ){
-                throw  new HighPriceIncreaseException("The price increase on: " + getDescription() +
-                                                      " is too high [" + increase + "]" +
-                                                      "\n The increase should be less than 10.00");
+            double increase = price * (percentage / 100);
+
+            if (increase >= 10) {
+                throw new HighPriceIncreaseException(
+                        "The price increase on: " + getDescription() +
+                                " is too high [" + increase + "]" +
+                                "\n The increase should be less than 10.00"
+                );
             }
+
+            price += increase; // apply the price increase
+            System.out.println("✅ Price increased by " + increase + ". New price: " + price);
         } else {
-            System.out.println("Invalid percentage. Price remains unchanged.");
+            System.out.println("❌ Invalid percentage. Price remains unchanged.");
         }
     }
+
 
     // Method to display product details
     public void display() {
